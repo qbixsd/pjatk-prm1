@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PRM1</string>
     <string name="addDebt">Dodaj dług</string>
+    <string name="debtName">nazwa</string>
+    <string name="amount">wartość</string>
+    <string name="save">zapisz</string>
 </resources>

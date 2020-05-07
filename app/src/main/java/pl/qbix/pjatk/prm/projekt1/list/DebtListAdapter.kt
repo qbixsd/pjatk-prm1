@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pl.qbix.pjatk.prm.projekt1.R
-import pl.qbix.pjatk.prm.projekt1.persistence.InMemoryDebtRepository
+import pl.qbix.pjatk.prm.projekt1.persistence.DebtInfo
 
-class DebtListAdapter : RecyclerView.Adapter<DebtItemViewHolder>() {
-    val data = InMemoryDebtRepository().findAll()
+class DebtListAdapter(var data: List<DebtInfo>) : RecyclerView.Adapter<DebtItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DebtItemViewHolder {
         return DebtItemViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.debt_list_item_view, parent, false)
