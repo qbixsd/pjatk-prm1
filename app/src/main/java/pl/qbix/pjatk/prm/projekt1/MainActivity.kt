@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import pl.qbix.pjatk.prm.projekt1.edit.EditActivity
 import pl.qbix.pjatk.prm.projekt1.list.DebtListAdapter
+import pl.qbix.pjatk.prm.projekt1.list.DeleteConfirmationDialog
 import pl.qbix.pjatk.prm.projekt1.persistence.Database
-import pl.qbix.pjatk.prm.projekt1.persistence.DebtInfo
 import kotlin.concurrent.thread
 
 class MainActivity() : AppCompatActivity() {
-    val debtListAdapter: DebtListAdapter = DebtListAdapter(emptyList());
 
     val db by lazy {
         Database.getInstance(applicationContext).database
@@ -25,7 +24,7 @@ class MainActivity() : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         thread {
             val values = db.debts().findAll()
-            debtListAdapter.data = values
+            val debtListAdapter = DebtListAdapter(values, this::delete)
             runOnUiThread {
                 recycler.apply {
                     layoutManager = LinearLayoutManager(this@MainActivity)
@@ -41,14 +40,30 @@ class MainActivity() : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        thread {
-            if (requestCode == 1) {
-                val name = data?.getStringExtra("name") ?: ""
-                val amount = data?.getFloatExtra("amount", 0F) ?: 0F
-                db.debts().save(DebtInfo(0, name, amount))
-                debtListAdapter.data = db.debts().findAll()
-            }
+        if (requestCode == 1) {
+            refreshList()
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun refreshList() {
+        thread {
+            val values = db.debts().findAll()
+            val debtListAdapter = DebtListAdapter(values, this::delete)
+            runOnUiThread {
+                recycler.swapAdapter(debtListAdapter, false)
+            }
+        }
+    }
+
+    fun delete(id: Int) {
+        val deleteFunction = {
+                db.debts().deleteById(id)
+                refreshList()
+        }
+        DeleteConfirmationDialog(deleteFunction).apply { isCancelable = true }
+            .show(supportFragmentManager, "myDialog")
+
+        println("test")
     }
 }

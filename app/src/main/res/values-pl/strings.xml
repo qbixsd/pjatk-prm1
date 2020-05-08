@@ -4,4 +4,8 @@
     <string name="debtName">nazwa</string>
     <string name="amount">wartość</string>
     <string name="save">zapisz</string>
+    <string name="delete">usuń</string>
+    <string name="deleteConfirm">Czy na pewno?</string>
+    <string name="confirm">tak</string>
+    <string name="decline">nie</string>
 </resources>
