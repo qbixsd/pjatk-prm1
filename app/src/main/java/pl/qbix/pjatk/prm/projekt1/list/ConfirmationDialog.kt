@@ -8,14 +8,14 @@ import androidx.fragment.app.DialogFragment
 import pl.qbix.pjatk.prm.projekt1.R
 import kotlin.concurrent.thread
 
-class DeleteConfirmationDialog(val delete: () -> Unit) : DialogFragment() {
+class ConfirmationDialog(val onConfirm: () -> Unit) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(requireContext()).apply {
             setMessage(R.string.deleteConfirm)
             setPositiveButton(R.string.confirm, DialogInterface.OnClickListener { dialog, which ->
                 thread {
-                    delete()
+                    onConfirm()
                 }
             })
             setNegativeButton(R.string.decline, { dialog, which -> })

@@ -8,4 +8,9 @@
     <string name="deleteConfirm">Czy na pewno?</string>
     <string name="confirm">tak</string>
     <string name="decline">nie</string>
+    <string name="simulate">symulacja</string>
+    <string name="notfiy">powiadom</string>
+    <string name="rate">kwota zwrotu na sekundę</string>
+    <string name="interest">odsetki</string>
+    <string name="startStop">Start/Stop</string>
 </resources>

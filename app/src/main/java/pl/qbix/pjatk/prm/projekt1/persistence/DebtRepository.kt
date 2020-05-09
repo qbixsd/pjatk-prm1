@@ -10,6 +10,9 @@ interface DebtRepository {
     @Query("SELECT * FROM DebtInfo")
     fun findAll(): List<DebtInfo>
 
+    @Query("SELECT * FROM DebtInfo WHERE id = :id")
+    fun findById(id: Int): List<DebtInfo>
+
     @Insert
     fun save(debtInfo: DebtInfo)
 

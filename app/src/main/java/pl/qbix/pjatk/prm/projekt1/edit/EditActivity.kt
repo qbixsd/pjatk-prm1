@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.debt_list_item_view.*
 import pl.qbix.pjatk.prm.projekt1.R
+import pl.qbix.pjatk.prm.projekt1.list.ConfirmationDialog
 import pl.qbix.pjatk.prm.projekt1.persistence.Database
 import pl.qbix.pjatk.prm.projekt1.persistence.DebtInfo
 import kotlin.concurrent.thread
@@ -15,9 +16,35 @@ class EditActivity : AppCompatActivity() {
         Database.getInstance(applicationContext).database
     }
 
+    var debtInfo: DebtInfo? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
+        intent?.let {
+            val id = it.getIntExtra("debtId", 0)
+            loadData(id)
+        }
+    }
+
+    private fun loadData(id: Int) {
+        if (id == 0) {
+            return;
+        }
+        thread {
+            debtInfo = db.debts().findById(id)[0]
+            runOnUiThread {
+                txtName.text = debtInfo?.debtName
+                txtAmount.text = debtInfo?.amount.toString()
+            }
+        }
+    }
+
+    fun simulate(view: View) {
+        val intent = Intent(this, EditActivity::class.java).apply {
+            putExtra("debtId", debtInfo?.id)
+        }
+        startActivity(intent)
     }
 
     fun save(view: View) {
@@ -26,6 +53,15 @@ class EditActivity : AppCompatActivity() {
             val amount = txtAmount.text.toString().toFloat()
             db.debts().save(DebtInfo(0, name, amount))
             finish()
+        }
+    }
+
+    fun cancel(view: View) {
+        if (debtInfo == null) {
+            finish()
+        } else {
+            ConfirmationDialog({ finish() })
+                .show(supportFragmentManager, "confirmationDialog")
         }
     }
 }

@@ -8,7 +8,8 @@ import pl.qbix.pjatk.prm.projekt1.persistence.DebtInfo
 
 class DebtListAdapter(
     var data: List<DebtInfo>,
-    val delete: (Int) -> Unit
+    val delete: (Int) -> Boolean,
+    val edit: (Int) -> Unit
 ) : RecyclerView.Adapter<DebtItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DebtItemViewHolder {
         return DebtItemViewHolder(
@@ -21,6 +22,7 @@ class DebtListAdapter(
     }
 
     override fun onBindViewHolder(holder: DebtItemViewHolder, position: Int) {
-        holder.refreshData(data[position]) {delete(data[position].id)}
+        val row = data[position]
+        holder.refreshData(row, { delete(row.id) }, { edit(row.id) })
     }
 }
