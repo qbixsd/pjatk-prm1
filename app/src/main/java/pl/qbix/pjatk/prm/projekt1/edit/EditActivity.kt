@@ -9,6 +9,7 @@ import pl.qbix.pjatk.prm.projekt1.R
 import pl.qbix.pjatk.prm.projekt1.list.ConfirmationDialog
 import pl.qbix.pjatk.prm.projekt1.persistence.Database
 import pl.qbix.pjatk.prm.projekt1.persistence.DebtInfo
+import pl.qbix.pjatk.prm.projekt1.simulation.SimulationActivity
 import kotlin.concurrent.thread
 
 class EditActivity : AppCompatActivity() {
@@ -41,7 +42,7 @@ class EditActivity : AppCompatActivity() {
     }
 
     fun simulate(view: View) {
-        val intent = Intent(this, EditActivity::class.java).apply {
+        val intent = Intent(this, SimulationActivity::class.java).apply {
             putExtra("debtId", debtInfo?.id)
         }
         startActivity(intent)

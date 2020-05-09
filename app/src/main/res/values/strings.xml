@@ -13,4 +13,7 @@
     <string name="rate">return rate per second</string>
     <string name="interest">interest %</string>
     <string name="startStop">Start/Stop</string>
+    <string name="simRunning">simulation is currently running</string>
+    <string name="simAborted">simulation has been stopped</string>
+    <string name="simEnded">Simulation has ended. Total interests: %s</string>
 </resources>
