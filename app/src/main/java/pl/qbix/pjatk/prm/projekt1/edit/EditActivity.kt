@@ -61,8 +61,20 @@ class EditActivity : AppCompatActivity() {
         if (debtInfo == null) {
             finish()
         } else {
-            ConfirmationDialog({ finish() })
+            ConfirmationDialog { finish() }
                 .show(supportFragmentManager, "confirmationDialog")
         }
+    }
+
+    fun send(view: View) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            setType("text/plain")
+            putExtra(Intent.EXTRA_TEXT, string(R.string.debtReminder).format(debtInfo?.amount))
+        }
+        startActivity(Intent.createChooser(intent, "Share!"));
+    }
+
+    fun string(id: Int): String {
+        return applicationContext.resources.getString(id);
     }
 }
