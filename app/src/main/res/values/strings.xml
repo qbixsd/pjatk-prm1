@@ -17,4 +17,5 @@
     <string name="simAborted">simulation has been stopped</string>
     <string name="simEnded">Simulation has ended. Total interests: %s</string>
     <string name="debtReminder">Could you kindly return your loan? Value: %s PLN</string>
+    <string name="debtReminderTitle">Send reminder</string>
 </resources>

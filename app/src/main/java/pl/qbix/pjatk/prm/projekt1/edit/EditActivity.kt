@@ -71,7 +71,7 @@ class EditActivity : AppCompatActivity() {
             setType("text/plain")
             putExtra(Intent.EXTRA_TEXT, string(R.string.debtReminder).format(debtInfo?.amount))
         }
-        startActivity(Intent.createChooser(intent, "Share!"));
+        startActivity(Intent.createChooser(intent, string(R.string.debtReminderTitle)));
     }
 
     fun string(id: Int): String {
