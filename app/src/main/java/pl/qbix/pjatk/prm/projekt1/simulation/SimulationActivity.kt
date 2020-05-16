@@ -58,9 +58,9 @@ class SimulationActivity : AppCompatActivity() {
                     }
                     timer.cancel()
                 } else {
-                    val interests: Float = newAmount * (interest / 100F)
+                    val interests: Float = (newAmount * interest) / 100F
                     totalInterest += interests
-                    newAmount += interest
+                    newAmount += interests
                 }
                 debtInfo?.amount = newAmount
                 runOnUiThread {

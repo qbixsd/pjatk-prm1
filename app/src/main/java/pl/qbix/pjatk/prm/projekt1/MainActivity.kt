@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import pl.qbix.pjatk.prm.projekt1.edit.EditActivity
-import pl.qbix.pjatk.prm.projekt1.list.DebtListAdapter
 import pl.qbix.pjatk.prm.projekt1.list.ConfirmationDialog
+import pl.qbix.pjatk.prm.projekt1.list.DebtListAdapter
 import pl.qbix.pjatk.prm.projekt1.persistence.Database
 import kotlin.concurrent.thread
 
@@ -24,12 +24,16 @@ class MainActivity() : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         thread {
             val values = db.debts().findAll()
+            val totalDebt = values
+                .map { value -> value.amount }
+                .sum()
             val debtListAdapter = DebtListAdapter(values, this::delete, this::edit)
             runOnUiThread {
                 recycler.apply {
                     layoutManager = LinearLayoutManager(this@MainActivity)
                     adapter = debtListAdapter
                 }
+                lblTotalAmount.text = string(R.string.totalAmount).format(totalDebt)
             }
         }
     }
@@ -46,9 +50,13 @@ class MainActivity() : AppCompatActivity() {
     private fun refreshList() {
         thread {
             val values = db.debts().findAll()
+            val totalDebt = values
+                .map { value -> value.amount }
+                .sum()
             val debtListAdapter = DebtListAdapter(values, this::delete, this::edit)
             runOnUiThread {
                 recycler.swapAdapter(debtListAdapter, false)
+                lblTotalAmount.text = string(R.string.totalAmount).format(totalDebt)
             }
         }
     }
@@ -72,5 +80,9 @@ class MainActivity() : AppCompatActivity() {
         ConfirmationDialog(deleteFunction).apply { isCancelable = true }
             .show(supportFragmentManager, "myDialog")
         return true;
+    }
+
+    fun string(id: Int): String {
+        return applicationContext.resources.getString(id)
     }
 }

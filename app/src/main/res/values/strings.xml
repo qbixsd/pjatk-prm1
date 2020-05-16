@@ -18,4 +18,5 @@
     <string name="simEnded">Simulation has ended. Total interests: %s</string>
     <string name="debtReminder">Could you kindly return your loan? Value: %s PLN</string>
     <string name="debtReminderTitle">Send reminder</string>
+    <string name="totalAmount">Total amount of debts: %s PLN</string>
 </resources>

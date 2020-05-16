@@ -18,4 +18,5 @@
     <string name="simEnded">Symulacja zakończona. Suma odsetek: %s</string>
     <string name="debtReminder">Czy możesz oddać mi moje poeniądze? Całkowita kwota: %s PLN</string>
     <string name="debtReminderTitle">Wyślij przypomnienie</string>
+    <string name="totalAmount">Suma długów: %s PLN</string>
 </resources>
