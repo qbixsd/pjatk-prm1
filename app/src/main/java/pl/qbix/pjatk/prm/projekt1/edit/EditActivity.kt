@@ -52,7 +52,13 @@ class EditActivity : AppCompatActivity() {
         thread {
             val name = txtName.text.toString()
             val amount = txtAmount.text.toString().toFloat()
-            db.debts().save(DebtInfo(0, name, amount))
+            if (debtInfo == null){
+                debtInfo = DebtInfo(0, name, amount)
+            }else{
+                debtInfo?.debtName = name
+                debtInfo?.amount = amount
+            }
+            db.debts().save(debtInfo as DebtInfo)
             finish()
         }
     }
